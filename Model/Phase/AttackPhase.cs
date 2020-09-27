@@ -73,6 +73,11 @@ namespace Model
             this.activeArmy.ApplyTakedAttack();
             this.targetArmy.ApplyTakedAttack();
 
+            foreach (Unit unit in this.attackTargets.Keys)
+            {
+                this.gameBoard.OnAttackTargetChanged(unit, null);
+            }
+
             this.selectedUnit = null;
             this.attackTargets.Clear();
         }
@@ -126,16 +131,19 @@ namespace Model
                 {
                     if (this.attackTargets[this.selectedUnit] == unit)
                     {
-                        this.selectedUnit = null;
+                        this.attackTargets[this.selectedUnit] = null;
+                        this.gameBoard.OnAttackTargetChanged(this.selectedUnit, null);
                     }
                     else
                     {
                         this.attackTargets[this.selectedUnit] = unit;
+                        this.gameBoard.OnAttackTargetChanged(this.selectedUnit, unit);
                     }
                 }
                 else
                 {
                     this.attackTargets.Add(this.selectedUnit, unit);
+                    this.gameBoard.OnAttackTargetChanged(this.selectedUnit, unit);
                 }
             }
         }

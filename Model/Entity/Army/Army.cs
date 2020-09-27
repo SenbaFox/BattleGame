@@ -38,6 +38,14 @@ namespace Model
             }
         }
 
+        public int HeadCount
+        {
+            get
+            {
+                return this.unitList.Sum(unit => unit.Headcount);
+            }
+        }
+
         /// <summary>
         /// 全滅したか
         /// </summary>

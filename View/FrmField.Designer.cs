@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlField = new System.Windows.Forms.Panel();
             this.btnFinishPhase = new System.Windows.Forms.Button();
             this.lblStatus = new System.Windows.Forms.Label();
@@ -38,8 +38,9 @@
             this.ColHeadCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColMovavleDistance = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColAttackTarget = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.gridUnits = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.gridUnits)).BeginInit();
+            this.GridUnits = new System.Windows.Forms.DataGridView();
+            this.lblArmyHeadCount = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.GridUnits)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlField
@@ -53,7 +54,7 @@
             // 
             this.btnFinishPhase.Enabled = false;
             this.btnFinishPhase.Font = new System.Drawing.Font("ＭＳ Ｐゴシック", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnFinishPhase.Location = new System.Drawing.Point(1256, 28);
+            this.btnFinishPhase.Location = new System.Drawing.Point(1256, 12);
             this.btnFinishPhase.Name = "btnFinishPhase";
             this.btnFinishPhase.Size = new System.Drawing.Size(205, 48);
             this.btnFinishPhase.TabIndex = 2;
@@ -73,9 +74,9 @@
             // 
             // ColDisplay
             // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.ColDisplay.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.ColDisplay.DefaultCellStyle = dataGridViewCellStyle3;
             this.ColDisplay.HeaderText = "表示";
             this.ColDisplay.MinimumWidth = 6;
             this.ColDisplay.Name = "ColDisplay";
@@ -94,8 +95,8 @@
             // 
             // ColHeadCount
             // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.ColHeadCount.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.ColHeadCount.DefaultCellStyle = dataGridViewCellStyle4;
             this.ColHeadCount.FillWeight = 50F;
             this.ColHeadCount.HeaderText = "兵数";
             this.ColHeadCount.MinimumWidth = 6;
@@ -122,37 +123,51 @@
             this.ColAttackTarget.Visible = false;
             this.ColAttackTarget.Width = 130;
             // 
-            // FrmField
+            // GridUnits
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1712, 753);
-            // 
-            // gridUnits
-            // 
-            this.gridUnits.AllowUserToAddRows = false;
-            this.gridUnits.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridUnits.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.GridUnits.AllowUserToAddRows = false;
+            this.GridUnits.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.GridUnits.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.GridUnits.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColDisplay,
             this.ColUnit,
             this.ColHeadCount,
             this.ColMovavleDistance,
             this.ColAttackTarget});
-            this.gridUnits.Location = new System.Drawing.Point(1256, 108);
-            this.gridUnits.Name = "gridUnits";
-            this.gridUnits.RowHeadersVisible = false;
-            this.gridUnits.RowHeadersWidth = 51;
-            this.gridUnits.Size = new System.Drawing.Size(410, 612);
-            this.gridUnits.TabIndex = 4;
-            this.gridUnits.Text = "dataGridView1";
-            this.Controls.Add(this.gridUnits);
+            this.GridUnits.Location = new System.Drawing.Point(1256, 108);
+            this.GridUnits.MultiSelect = false;
+            this.GridUnits.Name = "GridUnits";
+            this.GridUnits.RowHeadersVisible = false;
+            this.GridUnits.RowHeadersWidth = 51;
+            this.GridUnits.Size = new System.Drawing.Size(410, 612);
+            this.GridUnits.TabIndex = 4;
+            this.GridUnits.Text = "dataGridView1";
+            this.GridUnits.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.GridUnits_CellMouseClick);
+            // 
+            // lblArmyHeadCount
+            // 
+            this.lblArmyHeadCount.Location = new System.Drawing.Point(1255, 77);
+            this.lblArmyHeadCount.Name = "lblArmyHeadCount";
+            this.lblArmyHeadCount.Size = new System.Drawing.Size(411, 27);
+            this.lblArmyHeadCount.TabIndex = 5;
+            this.lblArmyHeadCount.Text = "ArmyHeadCount";
+            // 
+            // FrmField
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(1712, 753);
+            this.Controls.Add(this.lblArmyHeadCount);
+            this.Controls.Add(this.GridUnits);
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.pnlField);
             this.Controls.Add(this.btnFinishPhase);
             this.Name = "FrmField";
             this.Text = "BattleGame";
             this.Load += new System.EventHandler(this.FrmField_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.gridUnits)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GridUnits)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -162,12 +177,13 @@
         private System.Windows.Forms.Panel pnlField;
         private System.Windows.Forms.Button btnFinishPhase;
         private System.Windows.Forms.Label lblStatus;
-        private System.Windows.Forms.DataGridView gridUnits;
+        private System.Windows.Forms.DataGridView GridUnits;
         private System.Windows.Forms.DataGridViewImageColumn ColDisplay;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColUnit;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColHeadCount;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColMovavleDistance;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColAttackTarget;
+        private System.Windows.Forms.Label lblArmyHeadCount;
     }
 }
 

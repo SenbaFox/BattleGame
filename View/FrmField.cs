@@ -60,6 +60,7 @@ namespace BattleGame
                 y += (int)(HexLabel.BOUNDING_SIDE_LENGTH * (2.0 / 3.0));
             }
 
+            this.ShowArmiesHeadCount();
             this.SetGridUnits();
 
             this.btnFinishPhase.Enabled = true;
@@ -96,7 +97,17 @@ namespace BattleGame
         private void UnitControl_Click(object sender, EventArgs e)
         {
             UnitControl unitControl = (UnitControl)sender;
+
+            DataGridViewRow row = this.GetRow(unitControl.Unit);
+            row.Selected = true;
+
             this.game.SelectUnit(unitControl.Unit);
+        }
+
+        private void ShowArmiesHeadCount()
+        {
+            Army[] armies = this.game.Armies;
+            this.lblArmyHeadCount.Text = $"{armies[0]}:{armies[0].HeadCount}, {armies[1]}:{armies[1].HeadCount}";
         }
 
         // TODO:ユニットコントロール生成もこのメソッドで行い、メソッド名を変更する
@@ -107,11 +118,11 @@ namespace BattleGame
                 foreach (Unit unit in army.Units)
                 {
                     // TODO:行追加を一つのメソッドにする
-                    int rowIndex = this.gridUnits.Rows.Add();
-                    DataGridViewRow row = this.gridUnits.Rows[rowIndex];
+                    int rowIndex = this.GridUnits.Rows.Add();
+                    DataGridViewRow row = this.GridUnits.Rows[rowIndex];
 
                     ((DataGridViewImageCell)row.Cells[COL_DISPLAY]).Value = this.unitControls[unit].BackgroundImage;
-                    row.Cells[COL_UNIT].Value = unit.Name;
+                    row.Cells[COL_UNIT].Value = unit;
                     row.Cells[COL_HEADCOUNT].Value = unit.Headcount;
                     row.Cells[COL_MOVABLE_DISTANCE].Value = unit.MovableDistanceInCurrentPhase;
 
@@ -120,6 +131,12 @@ namespace BattleGame
                     unit.ChangedStatus += this.OnUnitChangedStatus;
                 }
             }
+        }
+
+        private void GridUnits_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            Unit unit = (Unit)this.GridUnits.Rows[e.RowIndex].Tag;
+            this.unitControls[unit].ShowInfo();
         }
 
         private void OnUnitChangedStatus(object sender, EventArgs e)
@@ -134,11 +151,13 @@ namespace BattleGame
             {
                 this.pnlField.Controls.Remove(this.unitControls[unit]);
             }
+
+            this.ShowArmiesHeadCount();
         }
 
         private DataGridViewRow GetRow(Unit unit)
         {
-            foreach (DataGridViewRow row in this.gridUnits.Rows)
+            foreach (DataGridViewRow row in this.GridUnits.Rows)
             {
                 if (row.Tag == unit)
                 {
@@ -158,8 +177,8 @@ namespace BattleGame
         public void OnChangePhase(IPhase phase)
         {
             this.lblStatus.Text = phase.Name;
-            this.gridUnits.Columns[COL_MOVABLE_DISTANCE].Visible = (phase.Type == PhaseType.移動);
-            this.gridUnits.Columns[COL_ATTACK_TARGET].Visible = (phase.Type == PhaseType.攻撃);
+            this.GridUnits.Columns[COL_MOVABLE_DISTANCE].Visible = (phase.Type == PhaseType.移動);
+            this.GridUnits.Columns[COL_ATTACK_TARGET].Visible = (phase.Type == PhaseType.攻撃);
         }
 
         public void OnUnitMove(Unit unit, Hex hex)
@@ -186,8 +205,8 @@ namespace BattleGame
             {
                 IsBalloon = true
             };
-            string text = $"攻撃! {target.Name}のダメージ:{targetDamage}" + Environment.NewLine +
-                          $"反撃! {counteredAttacker.Name}のダメージ:{attackerDamage}";
+            string text = $"攻撃! {target}のダメージ:{targetDamage}" + Environment.NewLine +
+                          $"反撃! {counteredAttacker}のダメージ:{attackerDamage}";
             tip.Show(text, this.unitControls[target], 0, -80, 2000);
         }
 

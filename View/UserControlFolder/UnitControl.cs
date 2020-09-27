@@ -58,18 +58,22 @@ namespace View
 
             this.Unit.ChangedStatus += this.OnChangedStatus;
 
-            this.ShowInfo();
+            this.toolTip.SetToolTip(this, this.ToString());
         }
 
         private void OnChangedStatus(object sender, EventArgs e)
         {
-            this.ShowInfo();
+            this.toolTip.SetToolTip(this, this.ToString());
         }
 
-        private void ShowInfo()
+        public void ShowInfo()
         {
-            string info = $"{this.Unit.Name}:{this.Unit.Headcount}";
-            this.toolTip.SetToolTip(this, info);
+            this.toolTip.Show(this.ToString(), this, 1000);
+        }
+
+        public override string ToString()
+        {
+            return $"{this.Unit}:{this.Unit.Headcount}";
         }
     }
 }

@@ -20,7 +20,7 @@ namespace Model
         /// <summary>
         /// 名前
         /// </summary>
-        public string Name { get; private set; }
+        private readonly string name;
 
         /// <summary>
         /// 兵数
@@ -69,7 +69,7 @@ namespace Model
         internal Unit(Army army, string name, Branch branch, int mobilePower, int headcount)
         {
             this.Army = army;
-            this.Name = name;
+            this.name = name;
             this.Branch = branch;
             this.mobilePower = mobilePower;
             this.Headcount = headcount;
@@ -133,7 +133,7 @@ namespace Model
 
         public override string ToString()
         {
-            return this.Name;
+            return this.name;
         }
     }
 }
