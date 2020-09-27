@@ -151,12 +151,12 @@ namespace BattleGame
             this.game.MoveNextPhase();
         }
 
-        public void ChangedPhase(string phaseName)
+        public void OnChangePhase(string phaseName)
         {
             this.lblStatus.Text = phaseName;
         }
 
-        public void MovedUnit(Unit unit, Hex hex)
+        public void OnUnitMove(Unit unit, Hex hex)
         {
             this.MoveUnit(this.unitControls[unit], this.hexLabels[hex]);
         }
@@ -168,7 +168,12 @@ namespace BattleGame
             unit.Location = new Point(x, y);
         }
 
-        public void FinishedGame(string result)
+        public void OnAttack(Unit target, int targetDamage, Unit counteredAttacker, int attackerDamage)
+        {
+
+        }
+
+        public void OnFinishedGame(string result)
         {
             lblStatus.Text = result;
         }

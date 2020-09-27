@@ -46,7 +46,7 @@
             }
 
             this.field.SetUnit(this.selectedUnit, hex);
-            this.gameBoard.MovedUnit(this.selectedUnit, hex);
+            this.gameBoard.OnUnitMove(this.selectedUnit, hex);
         }
 
         private bool CanMove(Hex hex)

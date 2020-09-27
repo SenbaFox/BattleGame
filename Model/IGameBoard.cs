@@ -5,10 +5,12 @@
     /// </summary>
     public interface IGameBoard
     {
-        void ChangedPhase(string phaseName);
+        void OnChangePhase(string phaseName);
 
-        void MovedUnit(Unit unit, Hex hex);
+        void OnUnitMove(Unit unit, Hex hex);
 
-        void FinishedGame(string result);
+        void OnAttack(Unit target, int targetDamage, Unit counteredAttacker, int attackerDamage);
+
+        void OnFinishedGame(string result);
     }
 }

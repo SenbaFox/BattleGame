@@ -67,7 +67,7 @@ namespace Model
 
             if (this.Armies[0].IsAnnihilation || this.Armies[1].IsAnnihilation)
             {
-                this.gameBoard.FinishedGame(this.GetResult());
+                this.gameBoard.OnFinishedGame(this.GetResult());
                 return;
             }
 

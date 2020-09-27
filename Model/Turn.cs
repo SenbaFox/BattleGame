@@ -32,7 +32,7 @@ namespace Model
                 (this.currentPhaseIndex >= (this.phases.Count - 1)) ? 0 : (this.currentPhaseIndex + 1);
 
             this.phases[currentPhaseIndex].Start();
-            this.gameBoard.ChangedPhase(this.phases[currentPhaseIndex].Name);
+            this.gameBoard.OnChangePhase(this.phases[currentPhaseIndex].Name);
         }
 
         public void SelectUnit(Unit unit)

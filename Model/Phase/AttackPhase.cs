@@ -72,8 +72,10 @@ namespace Model
             int attackerDamage = this.CalculateDamage(target.Headcount);
 
             target.TakeDamage(targetDamage);
-            Unit attackerDamageTaker = attackers.OrderByDescending(unit => unit.Headcount).First();
-            attackerDamageTaker.TakeDamage(attackerDamage);
+            Unit counteredAttacker = attackers.OrderByDescending(unit => unit.Headcount).First();
+            counteredAttacker.TakeDamage(attackerDamage);
+
+            this.gameBoard.OnAttack(target, targetDamage, counteredAttacker, attackerDamage);
         }
 
         private int CalculateDamage(int power)

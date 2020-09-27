@@ -71,5 +71,10 @@ namespace View
             string info = $"{this.Unit.Name}:{this.Unit.Headcount.ToString()}";
             this.tip.SetToolTip(this, info);
         }
+
+        public void ShowDamage()
+        {
+
+        }
     }
 }
