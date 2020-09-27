@@ -30,13 +30,14 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlField = new System.Windows.Forms.Panel();
             this.btnFinishPhase = new System.Windows.Forms.Button();
             this.lblStatus = new System.Windows.Forms.Label();
-            this.ColHeadCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColUnit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColDisplay = new System.Windows.Forms.DataGridViewImageColumn();
+            this.ColUnit = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColHeadCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColMovavleDistance = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColAttackTarget = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gridUnits = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.gridUnits)).BeginInit();
             this.SuspendLayout();
@@ -70,17 +71,17 @@
             this.lblStatus.TabIndex = 3;
             this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // ColHeadCount
+            // ColDisplay
             // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.ColHeadCount.DefaultCellStyle = dataGridViewCellStyle1;
-            this.ColHeadCount.FillWeight = 50F;
-            this.ColHeadCount.HeaderText = "兵数";
-            this.ColHeadCount.MinimumWidth = 6;
-            this.ColHeadCount.Name = "ColHeadCount";
-            this.ColHeadCount.ReadOnly = true;
-            this.ColHeadCount.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.ColHeadCount.Width = 80;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.ColDisplay.DefaultCellStyle = dataGridViewCellStyle1;
+            this.ColDisplay.HeaderText = "表示";
+            this.ColDisplay.MinimumWidth = 6;
+            this.ColDisplay.Name = "ColDisplay";
+            this.ColDisplay.ReadOnly = true;
+            this.ColDisplay.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ColDisplay.Width = 50;
             // 
             // ColUnit
             // 
@@ -91,19 +92,36 @@
             this.ColUnit.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.ColUnit.Width = 125;
             // 
-            // ColDisplay
+            // ColHeadCount
             // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.ColDisplay.DefaultCellStyle = dataGridViewCellStyle2;
-            this.ColDisplay.HeaderText = "表示";
-            this.ColDisplay.MinimumWidth = 6;
-            this.ColDisplay.Name = "ColDisplay";
-            this.ColDisplay.ReadOnly = true;
-            this.ColDisplay.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.ColDisplay.Width = 50;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.ColHeadCount.DefaultCellStyle = dataGridViewCellStyle2;
+            this.ColHeadCount.FillWeight = 50F;
+            this.ColHeadCount.HeaderText = "兵数";
+            this.ColHeadCount.MinimumWidth = 6;
+            this.ColHeadCount.Name = "ColHeadCount";
+            this.ColHeadCount.ReadOnly = true;
+            this.ColHeadCount.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ColHeadCount.Width = 80;
             // 
-
+            // ColMovavleDistance
+            // 
+            this.ColMovavleDistance.HeaderText = "移動可能距離";
+            this.ColMovavleDistance.MinimumWidth = 6;
+            this.ColMovavleDistance.Name = "ColMovavleDistance";
+            this.ColMovavleDistance.ReadOnly = true;
+            this.ColMovavleDistance.Visible = false;
+            this.ColMovavleDistance.Width = 130;
+            // 
+            // ColAttackTarget
+            // 
+            this.ColAttackTarget.HeaderText = "攻撃対象";
+            this.ColAttackTarget.MinimumWidth = 6;
+            this.ColAttackTarget.Name = "ColAttackTarget";
+            this.ColAttackTarget.ReadOnly = true;
+            this.ColAttackTarget.Visible = false;
+            this.ColAttackTarget.Width = 130;
+            // 
             // FrmField
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -117,7 +135,9 @@
             this.gridUnits.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColDisplay,
             this.ColUnit,
-            this.ColHeadCount});
+            this.ColHeadCount,
+            this.ColMovavleDistance,
+            this.ColAttackTarget});
             this.gridUnits.Location = new System.Drawing.Point(1256, 108);
             this.gridUnits.Name = "gridUnits";
             this.gridUnits.RowHeadersVisible = false;
@@ -143,9 +163,11 @@
         private System.Windows.Forms.Button btnFinishPhase;
         private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.DataGridView gridUnits;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColHeadCount;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColUnit;
         private System.Windows.Forms.DataGridViewImageColumn ColDisplay;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColUnit;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColHeadCount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColMovavleDistance;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColAttackTarget;
     }
 }
 
