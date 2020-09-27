@@ -61,8 +61,10 @@ namespace View
             try
             {
                 // 枠線を描画(BorderStyleを設定するだけだと上手く描画できない)
-                Pen pen = new Pen(Color.Black, 1);
-                pen.DashStyle = DashStyle.Solid;
+                Pen pen = new Pen(Color.Black, 1)
+                {
+                    DashStyle = DashStyle.Solid
+                };
 
                 Graphics graphics = e.Graphics;
                 // 右の線は1ポイント内側に描画する

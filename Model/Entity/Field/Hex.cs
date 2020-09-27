@@ -19,12 +19,12 @@
         /// <summary>
         /// 移動できるか
         /// </summary>
-        public bool CanMove => (this.Geography.CanMove && this.IsUnitLandedOn == false);
+        public bool CanMove => (this.Geography.CanMove && this.IsUnitLanded == false);
 
         /// <summary>
         /// 部隊がいるか
         /// </summary>
-        public bool IsUnitLandedOn => (this.LandedUnit != null);
+        public bool IsUnitLanded => (this.LandedUnit != null);
 
         /// <summary>
         /// コンストラクタ
@@ -39,7 +39,7 @@
         /// 部隊が配置される
         /// </summary>
         /// <param name="unit">部隊</param>
-        internal void LandedOn(Unit unit)
+        internal void OnLanded(Unit unit)
         {
             this.LandedUnit = unit;
         }

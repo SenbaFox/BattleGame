@@ -32,7 +32,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlField = new System.Windows.Forms.Panel();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnFinishPhase = new System.Windows.Forms.Button();
             this.lblStatus = new System.Windows.Forms.Label();
             this.ColHeadCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -48,13 +47,6 @@
             this.pnlField.Name = "pnlField";
             this.pnlField.Size = new System.Drawing.Size(1217, 612);
             this.pnlField.TabIndex = 0;
-            // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(1739, 0);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(250, 125);
-            this.flowLayoutPanel1.TabIndex = 1;
             // 
             // btnFinishPhase
             // 
@@ -111,11 +103,12 @@
             this.ColDisplay.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.ColDisplay.Width = 50;
             // 
+
             // FrmField
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1582, 753);
+            this.ClientSize = new System.Drawing.Size(1712, 753);
             // 
             // gridUnits
             // 
@@ -129,16 +122,15 @@
             this.gridUnits.Name = "gridUnits";
             this.gridUnits.RowHeadersVisible = false;
             this.gridUnits.RowHeadersWidth = 51;
-            this.gridUnits.Size = new System.Drawing.Size(280, 612);
+            this.gridUnits.Size = new System.Drawing.Size(410, 612);
             this.gridUnits.TabIndex = 4;
             this.gridUnits.Text = "dataGridView1";
             this.Controls.Add(this.gridUnits);
             this.Controls.Add(this.lblStatus);
-            this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.pnlField);
             this.Controls.Add(this.btnFinishPhase);
             this.Name = "FrmField";
-            this.Text = "Form1";
+            this.Text = "BattleGame";
             this.Load += new System.EventHandler(this.FrmField_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gridUnits)).EndInit();
             this.ResumeLayout(false);
@@ -148,16 +140,12 @@
         #endregion
 
         private System.Windows.Forms.Panel pnlField;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button btnFinishPhase;
         private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.DataGridView gridUnits;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColHeadCount;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColUnit;
         private System.Windows.Forms.DataGridViewImageColumn ColDisplay;
-        private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
     }
 }
 

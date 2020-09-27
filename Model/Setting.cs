@@ -48,9 +48,11 @@ namespace Model
             oField = null;
             oErrMsg = string.Empty;
 
-            List<Geography> geographies = new List<Geography>();
-            geographies.Add(new Geography(0, true));    // 平地
-            geographies.Add(new Geography(1, false));   // 海
+            List<Geography> geographies = new List<Geography>
+            {
+                new Geography(0, true),    // 平地
+                new Geography(1, false)   // 海
+            };
 
             List<Hex[]> hexLines = new List<Hex[]>();
             foreach (var line in setting["Field"])
@@ -77,9 +79,11 @@ namespace Model
             oArmies = null;
             oErrMsg = string.Empty;
 
-            Dictionary<int, Branch> branches = new Dictionary<int, Branch>();
-            branches.Add(0, Branch.歩兵);
-            branches.Add(1, Branch.騎兵);
+            Dictionary<int, Branch> branches = new Dictionary<int, Branch>
+            {
+                { 0, Branch.歩兵 },
+                { 1, Branch.騎兵 }
+            };
 
             List<Army> armies = new List<Army>();
             foreach (var armySetting in setting["Armies"])

@@ -82,7 +82,10 @@ namespace Model
         internal void Move(Hex hex)
         {
             this.CurrentHex = hex;
-            this.MovableDistanceInCurrentPhase += -1;
+            if (this.MovableDistanceInCurrentPhase > 0)
+            {
+                this.MovableDistanceInCurrentPhase += -1;
+            }
             this.OnChangedStatus(EventArgs.Empty);
         }
 
@@ -126,6 +129,11 @@ namespace Model
         protected virtual void OnChangedStatus(EventArgs e)
         {
             this.ChangedStatus?.Invoke(this, e);
+        }
+
+        public override string ToString()
+        {
+            return this.Name;
         }
     }
 }

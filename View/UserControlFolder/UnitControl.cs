@@ -14,7 +14,7 @@ namespace View
         /// </summary>
         static readonly Dictionary<Branch, Image> branchImg = new Dictionary<Branch, Image>();
 
-        readonly ToolTip tip = new ToolTip();
+        readonly ToolTip toolTip = new ToolTip();
 
         /// <summary>
         /// 部隊
@@ -56,25 +56,20 @@ namespace View
             this.BackgroundImageLayout = ImageLayout.Stretch;
             this.BackgroundImage = canvas;
 
-            this.Unit.ChangedStatus += this.ChangedStatus;
+            this.Unit.ChangedStatus += this.OnChangedStatus;
 
             this.ShowInfo();
         }
 
-        private void ChangedStatus(object sender, EventArgs e)
+        private void OnChangedStatus(object sender, EventArgs e)
         {
             this.ShowInfo();
         }
 
         private void ShowInfo()
         {
-            string info = $"{this.Unit.Name}:{this.Unit.Headcount.ToString()}";
-            this.tip.SetToolTip(this, info);
-        }
-
-        public void ShowDamage()
-        {
-
+            string info = $"{this.Unit.Name}:{this.Unit.Headcount}";
+            this.toolTip.SetToolTip(this, info);
         }
     }
 }

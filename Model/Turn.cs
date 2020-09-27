@@ -28,11 +28,14 @@ namespace Model
 
         public void StartNextPhase()
         {
-            this.currentPhaseIndex =
-                (this.currentPhaseIndex >= (this.phases.Count - 1)) ? 0 : (this.currentPhaseIndex + 1);
+            do {
+                this.currentPhaseIndex =
+                    (this.currentPhaseIndex >= (this.phases.Count - 1)) ? 0 : (this.currentPhaseIndex + 1);
+            }
+            while (!this.phases[currentPhaseIndex].IsValid());
 
             this.phases[currentPhaseIndex].Start();
-            this.gameBoard.OnChangePhase(this.phases[currentPhaseIndex].Name);
+            this.gameBoard.OnChangePhase(this.phases[currentPhaseIndex]);
         }
 
         public void SelectUnit(Unit unit)

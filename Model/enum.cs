@@ -8,4 +8,13 @@
         歩兵,
         騎兵
     }
+
+    /// <summary>
+    /// フェーズ種別
+    /// </summary>
+    public enum PhaseType
+    {
+        移動,
+        攻撃
+    }
 }

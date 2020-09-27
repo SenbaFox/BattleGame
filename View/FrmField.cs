@@ -16,6 +16,8 @@ namespace BattleGame
         private const int COL_DISPLAY = 0;
         private const int COL_UNIT = 1;
         private const int COL_HEADCOUNT = 2;
+        private const int COL_MOVABLE_DISTANCE = 3;
+        private const int COL_ATTACK_TARGET = 4;
 
         private readonly Game game = new Game();
 
@@ -46,7 +48,7 @@ namespace BattleGame
                 {
                     HexLabel hexLabel = this.CreateHexLabel(hex, x, y);
 
-                    if (hex.IsUnitLandedOn)
+                    if (hex.IsUnitLanded)
                     {
                         UnitControl unitControl = this.CreateUnitControl(hex.LandedUnit);
                         this.MoveUnit(unitControl, hexLabel);
@@ -74,6 +76,12 @@ namespace BattleGame
             return hexLabel;
         }
 
+        private void HexLabel_Click(object sender, EventArgs e)
+        {
+            HexLabel hexLabel = (HexLabel)sender;
+            this.game.SelectHex(hexLabel.Hex);
+        }
+
         private UnitControl CreateUnitControl(Unit unit)
         {
             UnitControl unitControl = new UnitControl(unit);
@@ -91,12 +99,6 @@ namespace BattleGame
             this.game.SelectUnit(unitControl.Unit);
         }
 
-        private void HexLabel_Click(object sender, EventArgs e)
-        {
-            HexLabel hexLabel = (HexLabel)sender;
-            this.game.SelectHex(hexLabel.Hex);
-        }
-
         // TODO:ユニットコントロール生成もこのメソッドで行い、メソッド名を変更する
         public void SetGridUnits()
         {
@@ -111,20 +113,22 @@ namespace BattleGame
                     ((DataGridViewImageCell)row.Cells[COL_DISPLAY]).Value = this.unitControls[unit].BackgroundImage;
                     row.Cells[COL_UNIT].Value = unit.Name;
                     row.Cells[COL_HEADCOUNT].Value = unit.Headcount;
+                    row.Cells[COL_MOVABLE_DISTANCE].Value = unit.MovableDistanceInCurrentPhase;
 
                     row.Tag = unit;
 
-                    unit.ChangedStatus += this.UnitChangedStatus;
+                    unit.ChangedStatus += this.OnUnitChangedStatus;
                 }
             }
         }
 
-        private void UnitChangedStatus(object sender, EventArgs e)
+        private void OnUnitChangedStatus(object sender, EventArgs e)
         {
             Unit unit = (Unit)sender;
 
             DataGridViewRow row = this.GetRow(unit);
             row.Cells[COL_HEADCOUNT].Value = unit.Headcount;
+            row.Cells[COL_MOVABLE_DISTANCE].Value = unit.MovableDistanceInCurrentPhase;
 
             if (unit.IsAnnihilation)
             {
@@ -151,9 +155,11 @@ namespace BattleGame
             this.game.MoveNextPhase();
         }
 
-        public void OnChangePhase(string phaseName)
+        public void OnChangePhase(IPhase phase)
         {
-            this.lblStatus.Text = phaseName;
+            this.lblStatus.Text = phase.Name;
+            this.gridUnits.Columns[COL_MOVABLE_DISTANCE].Visible = (phase.Type == PhaseType.移動);
+            this.gridUnits.Columns[COL_ATTACK_TARGET].Visible = (phase.Type == PhaseType.攻撃);
         }
 
         public void OnUnitMove(Unit unit, Hex hex)
@@ -168,9 +174,21 @@ namespace BattleGame
             unit.Location = new Point(x, y);
         }
 
+        public void OnAttackTargetChanged(Unit unit, Unit targetOrNull)
+        {
+            DataGridViewRow row = this.GetRow(unit);
+            row.Cells[COL_ATTACK_TARGET].Value = targetOrNull;
+        }
+
         public void OnAttack(Unit target, int targetDamage, Unit counteredAttacker, int attackerDamage)
         {
-
+            ToolTip tip = new ToolTip
+            {
+                IsBalloon = true
+            };
+            string text = $"攻撃! {target.Name}のダメージ:{targetDamage}" + Environment.NewLine +
+                          $"反撃! {counteredAttacker.Name}のダメージ:{attackerDamage}";
+            tip.Show(text, this.unitControls[target], 0, -80, 2000);
         }
 
         public void OnFinishedGame(string result)

@@ -3,9 +3,13 @@
     /// <summary>
     /// フェーズインターフェース
     /// </summary>
-    internal interface IPhase
+    public interface IPhase
     {
+        PhaseType Type { get; }
+
         string Name { get; }
+
+        bool IsValid();
 
         void Start();
 

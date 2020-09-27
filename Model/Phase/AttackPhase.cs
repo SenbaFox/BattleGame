@@ -20,6 +20,8 @@ namespace Model
 
         private readonly Random random = new Random(DateTime.Now.Second);
 
+        public PhaseType Type => PhaseType.攻撃;
+
         public string Name => this.activeArmy.Name + "攻撃フェーズ";
 
         public AttackPhase(IGameBoard gameBoard, Field field, Army activeArmy, Army targetArmy)
@@ -28,6 +30,22 @@ namespace Model
             this.field = field;
             this.activeArmy = activeArmy;
             this.targetArmy = targetArmy;
+        }
+
+        public bool IsValid()
+        {
+            foreach (Unit activeUnit in this.activeArmy.Units)
+            {
+                foreach (Unit targetUnit in this.targetArmy.Units)
+                {
+                    if (this.field.AreLayingSideBySide(activeUnit.CurrentHex, targetUnit.CurrentHex))
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
 
         public void Start()

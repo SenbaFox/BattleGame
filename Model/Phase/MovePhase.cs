@@ -10,6 +10,8 @@
 
         private Unit selectedUnit;
 
+        public PhaseType Type => PhaseType.移動;
+
         public string Name => this.activeArmy.Name + "移動フェーズ";
 
         public MovePhase(IGameBoard gameBoard, Field field, Army activeArmy)
@@ -17,6 +19,11 @@
             this.gameBoard = gameBoard;
             this.field = field;
             this.activeArmy = activeArmy;
+        }
+
+        public bool IsValid()
+        {
+            return true;
         }
 
         public void Start()

@@ -45,7 +45,7 @@ namespace Model
             {
                 unit.CurrentHex.TakeOff();
             }
-            hex.LandedOn(unit);
+            hex.OnLanded(unit);
             unit.Move(hex);
         }
 
