@@ -58,15 +58,18 @@
             this.activeArmy = activeArmy;
         }
 
+        /// <summary>
+        /// 有効か
+        /// </summary>
+        /// <returns>有効か</returns>
         public bool IsValid()
         {
             return true;
         }
 
         /// <summary>
-        /// 有効か
+        /// 開始する
         /// </summary>
-        /// <returns>有効か</returns>
         public void Start()
         {
             this.activeArmy.OnStartMovePhase();
