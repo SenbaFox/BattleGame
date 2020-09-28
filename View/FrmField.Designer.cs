@@ -58,7 +58,7 @@
             this.btnFinishPhase.Name = "btnFinishPhase";
             this.btnFinishPhase.Size = new System.Drawing.Size(205, 48);
             this.btnFinishPhase.TabIndex = 2;
-            this.btnFinishPhase.Text = "フェーズ終了";
+            this.btnFinishPhase.Text = "フェーズ終了(&F)";
             this.btnFinishPhase.Click += new System.EventHandler(this.BtnFinishPhase_Click);
             // 
             // lblStatus

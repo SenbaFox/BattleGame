@@ -147,11 +147,6 @@ namespace BattleGame
             row.Cells[COL_HEADCOUNT].Value = unit.Headcount;
             row.Cells[COL_MOVABLE_DISTANCE].Value = unit.MovableDistanceInCurrentPhase;
 
-            if (unit.IsAnnihilation)
-            {
-                this.pnlField.Controls.Remove(this.unitControls[unit]);
-            }
-
             this.ShowArmiesHeadCount();
         }
 
@@ -208,6 +203,15 @@ namespace BattleGame
             string text = $"攻撃! {target}のダメージ:{targetDamage}" + Environment.NewLine +
                           $"反撃! {counteredAttacker}のダメージ:{attackerDamage}";
             tip.Show(text, this.unitControls[target], 0, -80, 2000);
+
+            if (target.IsAnnihilation)
+            {
+                this.pnlField.Controls.Remove(this.unitControls[target]);
+            }
+            if (counteredAttacker.IsAnnihilation)
+            {
+                this.pnlField.Controls.Remove(this.unitControls[counteredAttacker]);
+            }
         }
 
         public void OnFinishedGame(string result)
