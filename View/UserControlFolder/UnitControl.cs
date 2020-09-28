@@ -28,6 +28,7 @@ namespace View
             int width = HexLabel.BOUNDING_SIDE_LENGTH - 4;
             int height = width / 3;
             this.SetBounds(this.Left, this.Top, width, height);
+            this.TabStop = false;
 
             this.Unit = unit;
 

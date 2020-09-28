@@ -8,11 +8,24 @@ namespace Model
     /// </summary>
     public class Game
     {
-        // TODO:シングルトンにする
+        /// <summary>
+        /// インスタンス
+        /// </summary>
+        private static readonly Game instance = new Game();
 
+        #region メンバ変数
+
+        /// <summary>
+        /// ターン
+        /// </summary>
         private Turn turn;
 
+        /// <summary>
+        /// ゲーム盤
+        /// </summary>
         private IGameBoard gameBoard;
+
+        #endregion
 
         #region プロパティ
 
@@ -28,39 +41,40 @@ namespace Model
 
         #endregion
 
+        #region メソッド
+
+        /// <summary>
+        /// インスタンスを取得する
+        /// </summary>
+        /// <returns>ゲーム</returns>
+        public static Game GetInstance()
+        {
+            return instance;
+        }
+
+        private Game() { }
+
         /// <summary>
         /// 初期化する
         /// </summary>
         /// <param name="gameBoard">ゲーム盤</param>
-        /// <param name="oErrMsg">エラーメッセージ</param>
-        /// <returns>成功 or 失敗</returns>
-        public bool TryInitialize(IGameBoard gameBoard, out string oErrMsg)
+        public void Initialize(IGameBoard gameBoard)
         {
             this.gameBoard = gameBoard;
+
             Setting setting = new Setting();
-            try
-            {
-                if (setting.TryLoad(out Field field, out Army[] armies, out oErrMsg))
-                {
-                    this.BattleField = field;
-                    this.Armies = armies;
-                    this.turn = new Turn(gameBoard, this.Armies, field);
-                    this.turn.StartNextPhase();
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            catch(Exception e)
-            {
-                oErrMsg = e.Message;
-                // TODO: ログ出力を実装
-                return false;
-            }
+            setting.Load(out Field field, out Army[] armies);
+
+            this.BattleField = field;
+            this.Armies = armies;
+            this.turn = new Turn(gameBoard, this.Armies, field);
+
+            this.turn.StartNextPhase();
         }
 
+        /// <summary>
+        /// 次のフェーズへ移行
+        /// </summary>
         public void MoveNextPhase()
         {
             this.turn.FinishCurrentPhase();
@@ -105,5 +119,7 @@ namespace Model
         {
             this.turn.OnSelectHex(hex);
         }
+
+        #endregion
     }
 }

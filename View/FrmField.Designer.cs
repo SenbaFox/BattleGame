@@ -48,7 +48,7 @@
             this.pnlField.Location = new System.Drawing.Point(12, 108);
             this.pnlField.Name = "pnlField";
             this.pnlField.Size = new System.Drawing.Size(1217, 612);
-            this.pnlField.TabIndex = 0;
+            this.pnlField.TabIndex = 1;
             // 
             // btnFinishPhase
             // 
@@ -69,7 +69,7 @@
             this.lblStatus.Location = new System.Drawing.Point(12, 9);
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Size = new System.Drawing.Size(1217, 96);
-            this.lblStatus.TabIndex = 3;
+            this.lblStatus.TabIndex = 0;
             this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ColDisplay
@@ -151,7 +151,7 @@
             this.lblArmyHeadCount.Location = new System.Drawing.Point(1255, 77);
             this.lblArmyHeadCount.Name = "lblArmyHeadCount";
             this.lblArmyHeadCount.Size = new System.Drawing.Size(411, 27);
-            this.lblArmyHeadCount.TabIndex = 5;
+            this.lblArmyHeadCount.TabIndex = 3;
             this.lblArmyHeadCount.Text = "軍の兵数";
             // 
             // FrmField

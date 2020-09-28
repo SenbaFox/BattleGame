@@ -19,7 +19,7 @@ namespace BattleGame
         private const int COL_MOVABLE_DISTANCE = 3;
         private const int COL_ATTACK_TARGET = 4;
 
-        private readonly Game game = new Game();
+        private readonly Game game = Game.GetInstance();
 
         private readonly Dictionary<Unit, UnitControl> unitControls = new Dictionary<Unit, UnitControl>();
 
@@ -32,9 +32,15 @@ namespace BattleGame
 
         private void FrmField_Load(object sender, EventArgs e)
         {
-            if (this.game.TryInitialize(this, out string errMsg) == false)
+            try
             {
-                MessageBox.Show(errMsg, "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.game.Initialize(this);
+            }
+            catch (Exception ex)
+            {
+                Logger logger = Logger.GetInstance();
+                logger.Write(ex.ToString());
+                MessageBox.Show(ex.Message, "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -131,12 +137,8 @@ namespace BattleGame
                     unit.ChangedStatus += this.OnUnitChangedStatus;
                 }
             }
-        }
 
-        private void GridUnits_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            Unit unit = (Unit)this.GridUnits.Rows[e.RowIndex].Tag;
-            this.unitControls[unit].ShowInfo();
+            this.GridUnits.CurrentCell = null;
         }
 
         private void OnUnitChangedStatus(object sender, EventArgs e)
@@ -164,16 +166,22 @@ namespace BattleGame
             return null;
         }
 
+        private void GridUnits_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            Unit unit = (Unit)this.GridUnits.Rows[e.RowIndex].Tag;
+            this.unitControls[unit].ShowInfo();
+        }
+
         private void BtnFinishPhase_Click(object sender, EventArgs e)
         {
             this.game.MoveNextPhase();
         }
 
-        public void OnChangePhase(IPhase phase)
+        public void OnChangePhase(IPhase newPhase)
         {
-            this.lblStatus.Text = phase.Name;
-            this.GridUnits.Columns[COL_MOVABLE_DISTANCE].Visible = (phase.Type == PhaseType.移動);
-            this.GridUnits.Columns[COL_ATTACK_TARGET].Visible = (phase.Type == PhaseType.攻撃);
+            this.lblStatus.Text = newPhase.Name;
+            this.GridUnits.Columns[COL_MOVABLE_DISTANCE].Visible = (newPhase.Type == PhaseType.移動);
+            this.GridUnits.Columns[COL_ATTACK_TARGET].Visible = (newPhase.Type == PhaseType.攻撃);
         }
 
         public void OnUnitMove(Unit unit, Hex hex)

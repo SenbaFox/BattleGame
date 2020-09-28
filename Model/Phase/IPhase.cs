@@ -5,10 +5,26 @@
     /// </summary>
     public interface IPhase
     {
+        #region プロパティ
+
+        /// <summary>
+        /// フェーズ種別
+        /// </summary>
         PhaseType Type { get; }
 
+        /// <summary>
+        /// フェーズ名
+        /// </summary>
         string Name { get; }
 
+        #endregion
+
+        #region メソッド
+
+        /// <summary>
+        /// 有効か
+        /// </summary>
+        /// <returns>有効か</returns>
         bool IsValid();
 
         /// <summary>
@@ -32,5 +48,7 @@
         /// </summary>
         /// <param name="hex">へクス</param>
         void OnSelectHex(Hex hex);
+
+        #endregion
     }
 }

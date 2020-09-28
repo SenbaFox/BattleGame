@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Model
@@ -41,6 +42,7 @@ namespace Model
             internal set
             {
                 this.unitList.AddRange(value);
+                this.unitList.ForEach(unit => unit.ChangedStatus += this.OnUnitChangedStatus);
             }
         }
 
@@ -91,13 +93,10 @@ namespace Model
             return this.unitList.Contains(unit);
         }
 
-        /// <summary>
-        /// 受けた攻撃を反映する
-        /// </summary>
-        public void ApplyTakedAttack()
+        private void OnUnitChangedStatus(object sender, EventArgs e)
         {
-            Unit[] annihilatedUnits = this.unitList.Where(unit => unit.IsAnnihilation).ToArray();
-            foreach (Unit unit in annihilatedUnits)
+            Unit unit = (Unit)sender;
+            if (unit.IsAnnihilation)
             {
                 this.unitList.Remove(unit);
             }

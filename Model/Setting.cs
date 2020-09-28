@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,14 +11,33 @@ namespace Model
     /// </summary>
     public class Setting
     {
+        #region メンバ変数
+
+        /// <summary>
+        /// 地形配列
+        /// </summary>
+        private readonly Geography[] geographies = new Geography[]
+        {
+            new Geography(0, true),    // 平地
+            new Geography(1, false)   // 海
+        };
+
+        private readonly Dictionary<int, Branch> branches = new Dictionary<int, Branch>
+        {
+            { 0, Branch.歩兵 },
+            { 1, Branch.騎兵 }
+        };
+
+        #endregion
+
+        #region メソッド
+
         /// <summary>
         /// ロードする
         /// </summary>
         /// <param name="oField">戦場</param>
         /// <param name="oArmies">両軍</param>
-        /// <param name="oErrMsg">エラーメッセージ</param>
-        /// <returns></returns>
-        public bool TryLoad(out Field oField, out Army[] oArmies, out string oErrMsg)
+        public void Load(out Field oField, out Army[] oArmies)
         {
             oField = null;
             oArmies = null;
@@ -25,109 +45,96 @@ namespace Model
             const string PATH = @"Setting.json";
             if (File.Exists(PATH) == false)
             {
-                oErrMsg = PATH + "が存在しません。";
-                return false;
+                throw new Exception(PATH + "が存在しません。");
             }
             JObject setting = JObject.Parse(File.ReadAllText(PATH));
 
-            if (this.TryCreateField(setting, out oField, out oErrMsg) == false)
-            {
-                return false;
-            }
-
-            if (this.TryCreateArmies(setting, oField, out oArmies, out oErrMsg) == false)
-            {
-                return false;
-            }
-
-            return true;
+            oField = this.CreateField(setting);
+            oArmies = this.CreateArmies(setting, oField);
         }
 
-        private bool TryCreateField(JObject setting, out Field oField, out string oErrMsg)
+        #region 戦場オブジェクト生成
+
+        private Field CreateField(JObject setting)
         {
-            oField = null;
-            oErrMsg = string.Empty;
-
-            List<Geography> geographies = new List<Geography>
-            {
-                new Geography(0, true),    // 平地
-                new Geography(1, false)   // 海
-            };
-
             List<Hex[]> hexLines = new List<Hex[]>();
             foreach (var line in setting["Field"])
             {
-                List<Hex> hexLine = new List<Hex>();
-                foreach (int geographyID in line)
-                {
-                    Geography geography = geographies.Where(geo => geo.ID == geographyID).FirstOrDefault();
-                    if (geography == null)
-                    {
-                        oErrMsg = "Fieldの設定に未対応の地形ID:" + geographyID.ToString() + "が含まれています。";
-                        return false;
-                    }
-                    hexLine.Add(new Hex(geography));
-                }
-                hexLines.Add(hexLine.ToArray());
+                Hex[] hexLine = line.Values<int>().Select(id => this.CreateHex(id)).ToArray();
+                hexLines.Add(hexLine);
             }
-            oField = new Field(hexLines.ToArray());
-            return true;
+
+            return new Field(hexLines.ToArray());
         }
 
-        private bool TryCreateArmies(JObject setting, Field field, out Army[] oArmies, out string oErrMsg)
+        private Hex CreateHex(int geographyID)
         {
-            oArmies = null;
-            oErrMsg = string.Empty;
-
-            Dictionary<int, Branch> branches = new Dictionary<int, Branch>
+            Geography geography = this.geographies.Where(geo => geo.ID == geographyID).FirstOrDefault();
+            if (geography == null)
             {
-                { 0, Branch.歩兵 },
-                { 1, Branch.騎兵 }
-            };
+                throw new Exception($"Fieldの設定に未対応の地形ID:{geographyID}が含まれています。");
+            }
 
+            return new Hex(geography);
+        }
+
+        #endregion
+
+        #region 軍オブジェクト生成
+
+        private Army[] CreateArmies(JObject setting, Field field)
+        {
             List<Army> armies = new List<Army>();
             foreach (var armySetting in setting["Armies"])
             {
                 int armyID = armies.Count;
-                string armyName = armySetting["Name"].ToString();
-                Army army = new Army(armyID, armyName);
+                Army army = this.CreateArmy(armySetting, armyID, field);
+
                 armies.Add(army);
-
-                List<Unit> units = new List<Unit>();
-                foreach (var unitSetting in armySetting["Units"])
-                {
-                    string unitName = unitSetting["Name"].ToString();
-                    int branchID = (int)unitSetting["Branch"];
-                    int mobilePower = (int)unitSetting["MobilePower"];
-                    int headcount = (int)unitSetting["Headcount"];
-
-                    if (branches.ContainsKey(branchID) == false)
-                    {
-                        oErrMsg = "Unitsの設定に未対応の兵科ID:" + branchID.ToString() + "が含まれています。";
-                        return false;
-                    }
-
-                    Unit unit = new Unit(army, unitName, branches[branchID], mobilePower, headcount);
-
-                    units.Add(unit);
-
-                    var location = unitSetting["Location"];
-                    int x = (int)location[0];
-                    int y = (int)location[1];
-                    field.SetUnit(unit, x, y);
-                }
-
-                army.Units = units.ToArray();
             }
 
             if (armies.Count != 2)
             {
-                oErrMsg = "Armiesには2つ設定してください。";
-                return false;
+                throw new Exception("Armiesには2つ設定してください。");
             }
 
-            oArmies = armies.ToArray();
-            return true;
+            return armies.ToArray();
         }
+
+        private Army CreateArmy(JToken armySetting, int armyID, Field field)
+        {
+            string armyName = armySetting["Name"].ToString();
+            Army army = new Army(armyID, armyName);
+
+            army.Units = armySetting["Units"].Select(setting => this.CreateUnit(setting, army, field)).ToArray();
+
+            return army;
+        }
+
+        private Unit CreateUnit(JToken unitSetting, Army army, Field field)
+        {
+            string unitName = unitSetting["Name"].ToString();
+            int branchID = (int)unitSetting["Branch"];
+            int mobilePower = (int)unitSetting["MobilePower"];
+            int headcount = (int)unitSetting["Headcount"];
+
+            if (this.branches.ContainsKey(branchID) == false)
+            {
+                throw new Exception($"Unitsの設定に未対応の兵科ID:{branchID}が含まれています。");
+            }
+
+            Unit unit = new Unit(army, unitName, this.branches[branchID], mobilePower, headcount);
+
+            var location = unitSetting["Location"];
+            int x = (int)location[0];
+            int y = (int)location[1];
+            field.SetUnit(unit, x, y);
+
+            return unit;
+        }
+
+        #endregion
+
+        #endregion
     }
 }

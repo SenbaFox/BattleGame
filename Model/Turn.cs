@@ -1,16 +1,39 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace Model
 {
+    /// <summary>
+    /// ターン
+    /// </summary>
     public class Turn
     {
+        #region メンバ変数
+
+        /// <summary>
+        /// ゲーム盤
+        /// </summary>
         private readonly IGameBoard gameBoard;
 
+        /// <summary>
+        /// フェーズ
+        /// </summary>
         private readonly List<IPhase> phases = new List<IPhase>();
 
+        /// <summary>
+        /// 現フェーズのインデックス
+        /// </summary>
         private int currentPhaseIndex = -1;
 
+        #endregion
+
+        #region メソッド
+
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        /// <param name="gameBoard">ゲーム盤</param>
+        /// <param name="armies">軍隊</param>
+        /// <param name="field">戦場</param>
         public Turn(IGameBoard gameBoard, Army[] armies, Field field)
         {
             this.gameBoard = gameBoard;
@@ -21,11 +44,17 @@ namespace Model
             this.phases.Add(new AttackPhase(gameBoard, field, armies[1], armies[0]));
         }
 
+        /// <summary>
+        /// 現在のフェーズを終了する
+        /// </summary>
         public void FinishCurrentPhase()
         {
             this.phases[currentPhaseIndex].Finish();
         }
 
+        /// <summary>
+        /// 次のフェーズを開始する
+        /// </summary>
         public void StartNextPhase()
         {
             do {
@@ -55,5 +84,7 @@ namespace Model
         {
             this.phases[currentPhaseIndex].OnSelectHex(hex);
         }
+
+        #endregion
     }
 }

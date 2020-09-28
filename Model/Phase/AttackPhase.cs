@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 namespace Model
@@ -33,14 +32,14 @@ namespace Model
         private readonly Army enemy;
 
         /// <summary>
-        /// 部隊毎の攻撃対象
-        /// </summary>
-        private readonly Dictionary<Unit, Unit> attackTargets = new Dictionary<Unit, Unit>();
-
-        /// <summary>
         /// 選択中の部隊
         /// </summary>
         private Unit selectedUnit;
+
+        /// <summary>
+        /// 部隊毎の攻撃対象
+        /// </summary>
+        private readonly Dictionary<Unit, Unit> attackTargets = new Dictionary<Unit, Unit>();
 
         /// <summary>
         /// 乱数
@@ -62,6 +61,8 @@ namespace Model
         public string Name => this.activeArmy.Name + "攻撃フェーズ";
 
         #endregion
+
+        #region メソッド
 
         /// <summary>
         /// コンストラクタ
@@ -123,10 +124,7 @@ namespace Model
                 this.Attack(attackers.ToArray(), target);
             }
 
-            this.activeArmy.ApplyTakedAttack();
-            this.enemy.ApplyTakedAttack();
-
-            this.initialize();
+            this.Initialize();
         }
 
         private Dictionary<Unit, List<Unit>> GetAttackersByTarget()
@@ -178,7 +176,7 @@ namespace Model
 
         #endregion
 
-        private void initialize()
+        private void Initialize()
         {
             this.selectedUnit = null;
 
@@ -249,5 +247,7 @@ namespace Model
         public void OnSelectHex(Hex hex)
         {
         }
+
+        #endregion
     }
 }
