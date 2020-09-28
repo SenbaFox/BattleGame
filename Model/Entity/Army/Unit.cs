@@ -12,6 +12,8 @@ namespace Model
         /// </summary>
         public event EventHandler ChangedStatus;
 
+        #region メンバ変数
+
         /// <summary>
         /// 機動力
         /// </summary>
@@ -23,9 +25,34 @@ namespace Model
         private readonly string name;
 
         /// <summary>
+        /// 現フェーズで移動可能な距離
+        /// </summary>
+        private int movableDistanceInCurrentPhase;
+
+        /// <summary>
         /// 兵数
         /// </summary>
-        public int Headcount { get; private set; }
+        private int headcount;
+
+        #endregion
+
+        #region プロパティ
+
+        /// <summary>
+        /// 兵数
+        /// </summary>
+        public int Headcount
+        {
+            get
+            {
+                return this.headcount;
+            }
+            private set
+            {
+                this.headcount = value > 0 ? value : 0;
+                this.OnChangedStatus(EventArgs.Empty);
+            }
+        }
 
         /// <summary>
         /// 現在いるへクス
@@ -45,7 +72,18 @@ namespace Model
         /// <summary>
         /// 現フェーズで移動可能な距離
         /// </summary>
-        public int MovableDistanceInCurrentPhase { get; private set; }
+        public int MovableDistanceInCurrentPhase
+        {
+            get
+            {
+                return this.movableDistanceInCurrentPhase;
+            }
+            private set
+            {
+                this.movableDistanceInCurrentPhase = value > 0 ? value : 0;
+                this.OnChangedStatus(EventArgs.Empty);
+            }
+        }
 
         /// <summary>
         /// 全滅したか
@@ -57,6 +95,10 @@ namespace Model
                 return (this.Headcount <= 0);
             }
         }
+
+        #endregion
+
+        #region メソッド
 
         /// <summary>
         /// コンストラクタ
@@ -82,11 +124,7 @@ namespace Model
         internal void Move(Hex hex)
         {
             this.CurrentHex = hex;
-            if (this.MovableDistanceInCurrentPhase > 0)
-            {
-                this.MovableDistanceInCurrentPhase += -1;
-            }
-            this.OnChangedStatus(EventArgs.Empty);
+            this.MovableDistanceInCurrentPhase += -1;
         }
 
 
@@ -97,29 +135,22 @@ namespace Model
         internal void TakeDamage(int damage)
         {
             this.Headcount -= damage;
-            if (this.Headcount < 0)
-            {
-                this.Headcount = 0;
-            }
-            this.OnChangedStatus(EventArgs.Empty);
         }
 
         /// <summary>
         /// 移動フェーズ開始
         /// </summary>
-        internal void StartMovePhase()
+        internal void OnStartMovePhase()
         {
             this.MovableDistanceInCurrentPhase = this.mobilePower;
-            this.OnChangedStatus(EventArgs.Empty);
         }
 
         /// <summary>
         /// 移動フェーズ終了
         /// </summary>
-        internal void FinishMovePhase()
+        internal void OnFinishMovePhase()
         {
             this.MovableDistanceInCurrentPhase = 0;
-            this.OnChangedStatus(EventArgs.Empty);
         }
 
         /// <summary>
@@ -135,5 +166,7 @@ namespace Model
         {
             return this.name;
         }
+
+        #endregion
     }
 }

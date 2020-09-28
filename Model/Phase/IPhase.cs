@@ -11,12 +11,26 @@
 
         bool IsValid();
 
+        /// <summary>
+        /// 開始する
+        /// </summary>
         void Start();
 
+        /// <summary>
+        /// 終了する
+        /// </summary>
         void Finish();
 
-        void SelectUnit(Unit unit);
+        /// <summary>
+        /// 部隊が選択された時の処理
+        /// </summary>
+        /// <param name="unit">部隊</param>
+        void OnSelectUnit(Unit unit);
 
-        void SelectHex(Hex hex);
+        /// <summary>
+        /// へクスが選択された時の処理
+        /// </summary>
+        /// <param name="hex">へクス</param>
+        void OnSelectHex(Hex hex);
     }
 }

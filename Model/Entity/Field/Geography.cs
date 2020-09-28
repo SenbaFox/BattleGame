@@ -5,25 +5,33 @@
     /// </summary>
     public class Geography
     {
+        #region プロパティ
+
         /// <summary>
         /// ID
         /// </summary>
         public int ID { get; private set; }
 
         /// <summary>
-        /// 移動できるか
+        /// 配置できるか
         /// </summary>
-        public bool CanMove { get; private set; }
+        public bool CanLand { get; private set; }
+
+        #endregion
+
+        #region メソッド
 
         /// <summary>
         /// コンストラクタ
         /// </summary>
         /// <param name="id">ID</param>
-        /// <param name="canMove">移動できるか</param>
-        internal Geography(int id, bool canMove)
+        /// <param name="canLand">配置できるか</param>
+        internal Geography(int id, bool canLand)
         {
             this.ID = id;
-            this.CanMove = canMove;
+            this.CanLand = canLand;
         }
+
+        #endregion
     }
 }

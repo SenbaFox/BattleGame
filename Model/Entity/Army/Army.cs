@@ -8,10 +8,16 @@ namespace Model
     /// </summary>
     public class Army
     {
+        #region メンバ変数
+
         /// <summary>
         /// 所属する部隊のリスト
         /// </summary>
         private readonly List<Unit> unitList = new List<Unit>();
+
+        #endregion
+
+        #region プロパティ
 
         /// <summary>
         /// ID
@@ -38,6 +44,9 @@ namespace Model
             }
         }
 
+        /// <summary>
+        /// 兵数
+        /// </summary>
         public int HeadCount
         {
             get
@@ -56,6 +65,10 @@ namespace Model
                 return (this.unitList.Count == 0);
             }
         }
+
+        #endregion
+
+        #region メソッド
 
         /// <summary>
         /// コンストラクタ
@@ -93,22 +106,24 @@ namespace Model
         /// <summary>
         /// 移動フェーズ開始
         /// </summary>
-        internal void StartMovePhase()
+        internal void OnStartMovePhase()
         {
-            this.unitList.ForEach(unit => unit.StartMovePhase());
+            this.unitList.ForEach(unit => unit.OnStartMovePhase());
         }
 
         /// <summary>
         /// 移動フェーズ終了
         /// </summary>
-        internal void FinishMovePhase()
+        internal void OnFinishMovePhase()
         {
-            this.unitList.ForEach(unit => unit.FinishMovePhase());
+            this.unitList.ForEach(unit => unit.OnFinishMovePhase());
         }
 
         public override string ToString()
         {
             return this.Name;
         }
+
+        #endregion
     }
 }

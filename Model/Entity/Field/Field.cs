@@ -8,10 +8,16 @@ namespace Model
     /// </summary>
     public class Field
     {
+        #region プロパティ
+
         /// <summary>
         /// へクスの2次元配列
         /// </summary>
         public Hex[][] Hexes { get; private set; }
+
+        #endregion
+
+        #region メソッド
 
         /// <summary>
         /// コンストラクタ
@@ -40,13 +46,29 @@ namespace Model
         /// <param name="hex">へクス</param>
         internal void SetUnit(Unit unit, Hex hex)
         {
-            // TODO: チェック追加
+            if (!hex.CanLand)
+            {
+                int[] hexIndex = this.GetIndex(hex);
+                throw new InvalidOperationException($"へクスに部隊を配置できません。部隊:{unit}、座標{hexIndex[0]}, {hexIndex[1]}");
+            }
+
             if(unit.CurrentHex != null)
             {
-                unit.CurrentHex.TakeOff();
+                unit.CurrentHex.OnTakeOff();
             }
             hex.OnLanded(unit);
             unit.Move(hex);
+        }
+
+        /// <summary>
+        /// 2つの部隊が隣り合っているか
+        /// </summary>
+        /// <param name="unit1">部隊1</param>
+        /// <param name="unit2">部隊2</param>
+        /// <returns>隣り合っているか</returns>
+        internal bool AreLayingSideBySide(Unit unit1, Unit unit2)
+        {
+            return this.AreLayingSideBySide(unit1.CurrentHex, unit2.CurrentHex);
         }
 
         /// <summary>
@@ -55,6 +77,7 @@ namespace Model
         /// <param name="hex1">へクス1</param>
         /// <param name="hex2">へクス2</param>
         /// <returns>隣り合っているか</returns>
+        /// <remarks>同じへクスは隣り合ってるとみなさない</remarks>
         internal bool AreLayingSideBySide(Hex hex1, Hex hex2)
         {
             int[] hex1Index = this.GetIndex(hex1);
@@ -65,7 +88,6 @@ namespace Model
 
             if (yDelta == 0)
             {
-                // 同じへクスは隣り合ってるとみなさない
                 return (xDelta == 1);
             }
 
@@ -100,5 +122,7 @@ namespace Model
 
             return new int[]{ x, y };
         }
+
+        #endregion
     }
 }

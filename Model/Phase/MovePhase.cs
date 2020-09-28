@@ -28,16 +28,16 @@
 
         public void Start()
         {
-            this.activeArmy.StartMovePhase();
+            this.activeArmy.OnStartMovePhase();
         }
 
         public void Finish()
         {
             this.selectedUnit = null;
-            this.activeArmy.FinishMovePhase();
+            this.activeArmy.OnFinishMovePhase();
         }
 
-        public void SelectUnit(Unit unit)
+        public void OnSelectUnit(Unit unit)
         {
             if (this.activeArmy.Contain(unit))
             {
@@ -45,9 +45,9 @@
             }
         }
 
-        public void SelectHex(Hex hex)
+        public void OnSelectHex(Hex hex)
         {
-            if (this.CanMove(hex) == false)
+            if (this.CanSetUnit(hex) == false)
             {
                 return;
             }
@@ -56,11 +56,11 @@
             this.gameBoard.OnUnitMove(this.selectedUnit, hex);
         }
 
-        private bool CanMove(Hex hex)
+        private bool CanSetUnit(Hex hex)
         {
             return ((this.selectedUnit != null) &&
                     (this.selectedUnit.MovableDistanceInCurrentPhase > 0) &&
-                    (hex.CanMove) &&
+                    (hex.CanLand) &&
                     (this.field.AreLayingSideBySide(this.selectedUnit.CurrentHex, hex)));
         }
     }

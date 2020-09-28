@@ -80,7 +80,7 @@ namespace BattleGame
         private void HexLabel_Click(object sender, EventArgs e)
         {
             HexLabel hexLabel = (HexLabel)sender;
-            this.game.SelectHex(hexLabel.Hex);
+            this.game.OnSelectHex(hexLabel.Hex);
         }
 
         private UnitControl CreateUnitControl(Unit unit)
@@ -101,7 +101,7 @@ namespace BattleGame
             DataGridViewRow row = this.GetRow(unitControl.Unit);
             row.Selected = true;
 
-            this.game.SelectUnit(unitControl.Unit);
+            this.game.OnSelectUnit(unitControl.Unit);
         }
 
         private void ShowArmiesHeadCount()

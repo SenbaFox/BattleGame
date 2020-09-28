@@ -88,14 +88,22 @@ namespace Model
             }
         }
 
-        public void SelectUnit(Unit unit)
+        /// <summary>
+        /// 部隊が選択された時の処理
+        /// </summary>
+        /// <param name="unit">部隊</param>
+        public void OnSelectUnit(Unit unit)
         {
-            this.turn.SelectUnit(unit);
+            this.turn.OnSelectUnit(unit);
         }
 
-        public void SelectHex(Hex hex)
+        /// <summary>
+        /// へクスが選択された時の処理
+        /// </summary>
+        /// <param name="hex">へクス</param>
+        public void OnSelectHex(Hex hex)
         {
-            this.turn.SelectHex(hex);
+            this.turn.OnSelectHex(hex);
         }
     }
 }

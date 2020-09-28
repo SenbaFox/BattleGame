@@ -1,11 +1,12 @@
 ﻿namespace Model
 {
-
     /// <summary>
     /// へクス
     /// </summary>
     public class Hex
     {
+        #region プロパティ
+
         /// <summary>
         /// 地形
         /// </summary>
@@ -17,14 +18,18 @@
         public Unit LandedUnit { get; private set; }
 
         /// <summary>
-        /// 移動できるか
+        /// 配置できるか
         /// </summary>
-        public bool CanMove => (this.Geography.CanMove && this.IsUnitLanded == false);
+        public bool CanLand => (this.Geography.CanLand && this.IsUnitLanded == false);
 
         /// <summary>
         /// 部隊がいるか
         /// </summary>
         public bool IsUnitLanded => (this.LandedUnit != null);
+
+        #endregion
+
+        #region メソッド
 
         /// <summary>
         /// コンストラクタ
@@ -47,9 +52,11 @@
         /// <summary>
         /// 部隊が離れる
         /// </summary>
-        internal void TakeOff()
+        internal void OnTakeOff()
         {
             this.LandedUnit = null;
         }
+
+        #endregion
     }
 }

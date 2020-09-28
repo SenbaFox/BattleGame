@@ -38,14 +38,22 @@ namespace Model
             this.gameBoard.OnChangePhase(this.phases[currentPhaseIndex]);
         }
 
-        public void SelectUnit(Unit unit)
+        /// <summary>
+        /// 部隊が選択された時の処理
+        /// </summary>
+        /// <param name="unit">部隊</param>
+        public void OnSelectUnit(Unit unit)
         {
-            this.phases[currentPhaseIndex].SelectUnit(unit);
+            this.phases[currentPhaseIndex].OnSelectUnit(unit);
         }
 
-        public void SelectHex(Hex hex)
+        /// <summary>
+        /// へクスが選択された時の処理
+        /// </summary>
+        /// <param name="hex">へクス</param>
+        public void OnSelectHex(Hex hex)
         {
-            this.phases[currentPhaseIndex].SelectHex(hex);
+            this.phases[currentPhaseIndex].OnSelectHex(hex);
         }
     }
 }

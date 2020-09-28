@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlField = new System.Windows.Forms.Panel();
             this.btnFinishPhase = new System.Windows.Forms.Button();
             this.lblStatus = new System.Windows.Forms.Label();
@@ -74,9 +74,9 @@
             // 
             // ColDisplay
             // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.ColDisplay.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.ColDisplay.DefaultCellStyle = dataGridViewCellStyle1;
             this.ColDisplay.HeaderText = "表示";
             this.ColDisplay.MinimumWidth = 6;
             this.ColDisplay.Name = "ColDisplay";
@@ -95,8 +95,8 @@
             // 
             // ColHeadCount
             // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.ColHeadCount.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.ColHeadCount.DefaultCellStyle = dataGridViewCellStyle2;
             this.ColHeadCount.FillWeight = 50F;
             this.ColHeadCount.HeaderText = "兵数";
             this.ColHeadCount.MinimumWidth = 6;
@@ -152,7 +152,7 @@
             this.lblArmyHeadCount.Name = "lblArmyHeadCount";
             this.lblArmyHeadCount.Size = new System.Drawing.Size(411, 27);
             this.lblArmyHeadCount.TabIndex = 5;
-            this.lblArmyHeadCount.Text = "ArmyHeadCount";
+            this.lblArmyHeadCount.Text = "軍の兵数";
             // 
             // FrmField
             // 
