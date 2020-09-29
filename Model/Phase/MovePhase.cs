@@ -31,14 +31,8 @@
 
         #region プロパティ
 
-        /// <summary>
-        /// フェーズ種別
-        /// </summary>
         public PhaseType Type => PhaseType.移動;
 
-        /// <summary>
-        /// フェーズ名
-        /// </summary>
         public string Name => this.activeArmy.Name + "移動フェーズ";
 
         #endregion
@@ -58,36 +52,22 @@
             this.activeArmy = activeArmy;
         }
 
-        /// <summary>
-        /// 有効か
-        /// </summary>
-        /// <returns>有効か</returns>
         public bool IsValid()
         {
             return true;
         }
 
-        /// <summary>
-        /// 開始する
-        /// </summary>
         public void Start()
         {
             this.activeArmy.OnStartMovePhase();
         }
 
-        /// <summary>
-        /// 終了する
-        /// </summary>
         public void Finish()
         {
             this.selectedUnit = null;
             this.activeArmy.OnFinishMovePhase();
         }
 
-        /// <summary>
-        /// 部隊が選択された時の処理
-        /// </summary>
-        /// <param name="unit">部隊</param>
         public void OnSelectUnit(Unit unit)
         {
             if (this.activeArmy.Contain(unit))
@@ -96,10 +76,6 @@
             }
         }
 
-        /// <summary>
-        /// へクスが選択された時の処理
-        /// </summary>
-        /// <param name="hex">へクス</param>
         public void OnSelectHex(Hex hex)
         {
             if (this.CanSetUnit(hex) == false)

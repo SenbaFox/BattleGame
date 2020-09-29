@@ -27,28 +27,44 @@ namespace View
         /// <summary>
         /// 地形画像
         /// </summary>
-        static readonly Dictionary<int, Image> geographyImg = new Dictionary<int, Image>();
+        static readonly Dictionary<int, Image> geographyImg = new Dictionary<int, Image>()
+        {
+            { 0, Image.FromFile(@"img\Geography\plain.png") },
+            { 1, Image.FromFile(@"img\Geography\sea.png") }
+        };
 
+        #region プロパティ
+
+        /// <summary>
+        /// へクス
+        /// </summary>
         public Hex Hex { get; private set; }
 
+        #endregion
+
+        #region メソッド
+
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        /// <param name="hex">へクス</param>
         public HexLabel(Hex hex)
         {
             InitializeComponent();
 
             this.Hex = hex;
 
+            this.Draw(hex);
+        }
+
+        private void Draw(Hex hex)
+        {
             this.SetBounds(this.Left, this.Top, BOUNDING_SIDE_LENGTH, BOUNDING_SIDE_LENGTH);
 
             byte[] types = { (byte) PathPointType.Line, (byte) PathPointType.Line, (byte) PathPointType.Line,
                              (byte) PathPointType.Line, (byte) PathPointType.Line, (byte) PathPointType.Line  };
             GraphicsPath path = new GraphicsPath(HexLabel.vertex, types);
             this.Region = new Region(path);
-
-            if (HexLabel.geographyImg.Count == 0)
-            {
-                HexLabel.geographyImg.Add(0, Image.FromFile(@"img\Geography\plain.png"));
-                HexLabel.geographyImg.Add(1, Image.FromFile(@"img\Geography\sea.png"));
-            }
 
             if (geographyImg.ContainsKey(hex.Geography.ID))
             {
@@ -80,5 +96,7 @@ namespace View
                 MessageBox.Show(ex.ToString());
             }
         }
+
+        #endregion
     }
 }

@@ -50,14 +50,8 @@ namespace Model
 
         #region プロパティ
 
-        /// <summary>
-        /// フェーズ種別
-        /// </summary>
         public PhaseType Type => PhaseType.攻撃;
 
-        /// <summary>
-        /// フェーズ名
-        /// </summary>
         public string Name => this.activeArmy.Name + "攻撃フェーズ";
 
         #endregion
@@ -79,10 +73,6 @@ namespace Model
             this.enemy = enemy;
         }
 
-        /// <summary>
-        /// 有効か
-        /// </summary>
-        /// <returns>有効か</returns>
         public bool IsValid()
         {
             foreach (Unit activeUnit in this.activeArmy.Units)
@@ -99,9 +89,6 @@ namespace Model
             return false;
         }
 
-        /// <summary>
-        /// 開始する
-        /// </summary>
         public void Start()
         {
             foreach (Unit unit in this.activeArmy.Units)
@@ -112,9 +99,6 @@ namespace Model
 
         #region 終了する
 
-        /// <summary>
-        /// 終了する
-        /// </summary>
         public void Finish()
         {
             Dictionary<Unit, List<Unit>> attackersByTarget = this.GetAttackersByTarget();
@@ -191,10 +175,6 @@ namespace Model
 
         #region 部隊が選択された時の処理
 
-        /// <summary>
-        /// 部隊が選択された時の処理
-        /// </summary>
-        /// <param name="unit">部隊</param>
         public void OnSelectUnit(Unit unit)
         {
             if (this.activeArmy.Contain(unit))
@@ -240,10 +220,6 @@ namespace Model
 
         #endregion
 
-        /// <summary>
-        /// へクスが選択された時の処理
-        /// </summary>
-        /// <param name="hex">へクス</param>
         public void OnSelectHex(Hex hex)
         {
         }

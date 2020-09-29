@@ -33,13 +33,13 @@
             this.pnlField = new System.Windows.Forms.Panel();
             this.btnFinishPhase = new System.Windows.Forms.Button();
             this.lblStatus = new System.Windows.Forms.Label();
+            this.lblArmyHeadCount = new System.Windows.Forms.Label();
             this.ColDisplay = new System.Windows.Forms.DataGridViewImageColumn();
             this.ColUnit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColHeadCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColMovavleDistance = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColAttackTarget = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GridUnits = new System.Windows.Forms.DataGridView();
-            this.lblArmyHeadCount = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.GridUnits)).BeginInit();
             this.SuspendLayout();
             // 
@@ -71,6 +71,14 @@
             this.lblStatus.Size = new System.Drawing.Size(1217, 96);
             this.lblStatus.TabIndex = 0;
             this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblArmyHeadCount
+            // 
+            this.lblArmyHeadCount.Location = new System.Drawing.Point(1255, 77);
+            this.lblArmyHeadCount.Name = "lblArmyHeadCount";
+            this.lblArmyHeadCount.Size = new System.Drawing.Size(411, 27);
+            this.lblArmyHeadCount.TabIndex = 3;
+            this.lblArmyHeadCount.Text = "軍の兵数";
             // 
             // ColDisplay
             // 
@@ -111,6 +119,7 @@
             this.ColMovavleDistance.MinimumWidth = 6;
             this.ColMovavleDistance.Name = "ColMovavleDistance";
             this.ColMovavleDistance.ReadOnly = true;
+            this.ColMovavleDistance.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.ColMovavleDistance.Visible = false;
             this.ColMovavleDistance.Width = 130;
             // 
@@ -120,8 +129,15 @@
             this.ColAttackTarget.MinimumWidth = 6;
             this.ColAttackTarget.Name = "ColAttackTarget";
             this.ColAttackTarget.ReadOnly = true;
+            this.ColAttackTarget.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.ColAttackTarget.Visible = false;
             this.ColAttackTarget.Width = 130;
+            // 
+            // FrmField
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(1712, 753);
             // 
             // GridUnits
             // 
@@ -145,20 +161,6 @@
             this.GridUnits.TabIndex = 4;
             this.GridUnits.Text = "dataGridView1";
             this.GridUnits.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.GridUnits_CellMouseClick);
-            // 
-            // lblArmyHeadCount
-            // 
-            this.lblArmyHeadCount.Location = new System.Drawing.Point(1255, 77);
-            this.lblArmyHeadCount.Name = "lblArmyHeadCount";
-            this.lblArmyHeadCount.Size = new System.Drawing.Size(411, 27);
-            this.lblArmyHeadCount.TabIndex = 3;
-            this.lblArmyHeadCount.Text = "軍の兵数";
-            // 
-            // FrmField
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1712, 753);
             this.Controls.Add(this.lblArmyHeadCount);
             this.Controls.Add(this.GridUnits);
             this.Controls.Add(this.lblStatus);
@@ -178,12 +180,12 @@
         private System.Windows.Forms.Button btnFinishPhase;
         private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.DataGridView GridUnits;
+        private System.Windows.Forms.Label lblArmyHeadCount;
         private System.Windows.Forms.DataGridViewImageColumn ColDisplay;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColUnit;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColHeadCount;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColMovavleDistance;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColAttackTarget;
-        private System.Windows.Forms.Label lblArmyHeadCount;
     }
 }
 
