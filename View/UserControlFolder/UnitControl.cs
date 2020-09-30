@@ -17,8 +17,8 @@ namespace View
         /// </summary>
         static readonly Dictionary<Branch, Image> branchImg = new Dictionary<Branch, Image>()
         {
-            { Branch.歩兵, Image.FromFile(@"img\Unit\歩兵.png") },
-            { Branch.騎兵, Image.FromFile(@"img\Unit\騎兵.png") }
+            { Branch.歩兵, Image.FromFile(@"Assets\img\Unit\歩兵.png") },
+            { Branch.騎兵, Image.FromFile(@"Assets\img\Unit\騎兵.png") }
         };
 
         #region メンバ変数

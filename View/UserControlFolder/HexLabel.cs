@@ -29,8 +29,8 @@ namespace View
         /// </summary>
         static readonly Dictionary<int, Image> geographyImg = new Dictionary<int, Image>()
         {
-            { 0, Image.FromFile(@"img\Geography\plain.png") },
-            { 1, Image.FromFile(@"img\Geography\sea.png") }
+            { 0, Image.FromFile(@"Assets\img\Geography\plain.png") },
+            { 1, Image.FromFile(@"Assets\img\Geography\sea.png") }
         };
 
         #region プロパティ

@@ -50,7 +50,7 @@ namespace Model
             private set
             {
                 this.headcount = value > 0 ? value : 0;
-                if (this.IsAnnihilation)
+                if (this.IsAnnihilation && (this.CurrentHex != null))
                 {
                     this.CurrentHex.OnTakeOff();
                 }

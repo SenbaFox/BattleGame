@@ -42,7 +42,7 @@ namespace Model
             oField = null;
             oArmies = null;
 
-            const string PATH = @"Setting.json";
+            const string PATH = @"Assets\Setting.json";
             if (File.Exists(PATH) == false)
             {
                 throw new Exception(PATH + "が存在しません。");
@@ -108,6 +108,11 @@ namespace Model
 
             army.Units = armySetting["Units"].Select(setting => this.CreateUnit(setting, army, field)).ToArray();
 
+            if (army.Units.Length == 0)
+            {
+                throw new Exception($"{army}に部隊が1つも設定されていません。");
+            }
+
             return army;
         }
 
@@ -121,6 +126,16 @@ namespace Model
             if (this.branches.ContainsKey(branchID) == false)
             {
                 throw new Exception($"Unitsの設定に未対応の兵科ID:{branchID}が含まれています。");
+            }
+
+            if (mobilePower <= 0)
+            {
+                throw new Exception("Unitsの設定にmobilePowerが0以下のUnitが含まれています。");
+            }
+
+            if (headcount <= 0)
+            {
+                throw new Exception("Unitsの設定にheadcountが0以下のUnitが含まれています。");
             }
 
             Unit unit = new Unit(army, unitName, this.branches[branchID], mobilePower, headcount);
