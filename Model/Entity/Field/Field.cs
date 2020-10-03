@@ -36,7 +36,7 @@ namespace Model
         /// <param name="y">y座標</param>
         internal void SetUnit(Unit unit, int x, int y)
         {
-            this.SetUnit(unit, this.Hexes[x][y]);
+            this.SetUnit(unit, this.Hexes[y][x]);
         }
 
         /// <summary>
