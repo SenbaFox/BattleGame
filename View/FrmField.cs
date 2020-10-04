@@ -186,6 +186,10 @@ namespace BattleGame
 
         private void GridUnits_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
+            if((e.RowIndex < 0) || (e.RowIndex >= this.GridUnits.Rows.Count))
+            {
+                return;
+            }
             Unit unit = (Unit)this.GridUnits.Rows[e.RowIndex].Tag;
             this.unitControls[unit].ShowInfo();
         }
@@ -204,6 +208,10 @@ namespace BattleGame
             DataGridViewRow row = this.GetRow(unit);
             row.Cells[COL_HEADCOUNT].Value = unit.Headcount;
             row.Cells[COL_MOVABLE_DISTANCE].Value = unit.MovableDistanceInCurrentPhase;
+            if(unit.IsAnnihilation)
+            {
+                row.DefaultCellStyle.BackColor = Color.Gray;
+            }
 
             this.ShowArmiesHeadCount();
         }
@@ -226,6 +234,10 @@ namespace BattleGame
         {
             DataGridViewRow row = this.GetRow(unit);
             row.Cells[COL_ATTACK_TARGET].Value = targetOrNull;
+            if(unit.IsAnnihilation)
+            {
+                row.Frozen = true;
+            }
         }
 
         #region 攻撃が発生した時の処理
@@ -244,6 +256,14 @@ namespace BattleGame
             };
             string text = $"攻撃! {target}のダメージ:{targetDamage}" + Environment.NewLine +
                           $"反撃! {counteredAttacker}のダメージ:{attackerDamage}";
+            if (target.IsAnnihilation)
+            {
+                text = text + Environment.NewLine + $"{target} 全滅!";
+            }
+            if (counteredAttacker.IsAnnihilation)
+            {
+                text = text + Environment.NewLine + $"{counteredAttacker} 全滅!";
+            }
             tip.Show(text, this.unitControls[target], 0, -80, 2000);
         }
 

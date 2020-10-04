@@ -19,7 +19,9 @@ namespace Model
         private readonly Geography[] geographies = new Geography[]
         {
             new Geography(0, true),    // 平地
-            new Geography(1, false)   // 海
+            new Geography(1, false),   // 山
+            new Geography(2, false),   // 川、海
+            new Geography(3, true)   // 浅瀬
         };
 
         private readonly Dictionary<int, Branch> branches = new Dictionary<int, Branch>
