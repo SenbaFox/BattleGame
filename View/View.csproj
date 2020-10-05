@@ -25,4 +25,8 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy /D /Y /E $(SolutionDir)Assets $(OutDir)Assets\" />
+  </Target>
+
 </Project>
