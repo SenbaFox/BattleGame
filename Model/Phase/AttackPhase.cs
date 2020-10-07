@@ -153,9 +153,9 @@ namespace Model
 
         private int CalculateDamage(int power)
         {
-            int randomValue = this.random.Next(1, 4);
+            int randomValue = this.random.Next(1, 11);
 
-            return randomValue * power / 10;
+            return (1 + randomValue / 10) * power / 10;
         }
 
         #endregion
